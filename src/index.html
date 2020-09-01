@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--Estilos-->
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/jogo.css">
+  <link rel="stylesheet" href="./utils/bootstrap/css/bootstrap.css">
+
+  <!--Icones/Animações-->
+  <link rel="stylesheet" href="./utils/fontawesome/css/all.css">
+  <link rel="stylesheet" href="./utils/animate-css/css/animate.css">
+
+  <!--Fontes-->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@500;800&display=swap" rel="stylesheet">
+
+  <!--Scripts-->
+  <script src="./utils/jquery/jquery-3.1.1.min.js"></script>
+  <script src="./utils/fontawesome/js/all.js"></script>
+  <script src="./utils/animate-css/js/wow.min.js"></script>
+  <script src="./utils/bootstrap/js/bootstrap.js"></script>
+
+  <!--Inicialização Animate.css-->
+  <script>
+    new WOW().init();
+  </script>
+
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container-fluid p-lg-5 bg-purple">
+
+    <!--Cabeçalho-->
+    <main>
+      <div class="p-0 mt-5 pt-5 mt-lg-0 p-lg-1 wow bounceInUp">
+        <h1 class="display-4 text-center text-light">
+          <i class="fa fa-hashtag fa-1x text-center rounded-circle p-2"
+            style="color: #6b8dfb; background-color: #FFFF;"></i>
+          Tic Tac <span>Toe</span>
+        </h1>
+      </div>
+
+      <!--Formulário-->
+      <section>
+        <div class="card col-lg-5 col-12 mx-auto p-0 border-0 bg-white wow bounceInRight shadow-xl" id="gameConfigCard">
+          <div class="card-body px-4">
+            <div class="row mb-4">
+              <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                <label for="player1">
+                  <i class="fa fa-user-circle fa-3x mr-2" style="color: #6b8dfb;"></i>
+                  Player-1
+                </label>
+                <input type="text" id="player1" class="form-control" placeholder="Digite um nome..." autocomplete="off">
+              </div>
+              <div class="col">
+                <label for="player2">
+                  <i class="fa fa-user-circle fa-3x mr-2" style="color: #6b8dfb;"></i>
+                  Player-2
+                </label>
+                <input type="text" id="player2" class="form-control" placeholder="Digite um nome..." autocomplete="off">
+              </div>
+            </div>
+            <hr>
+
+            <div class="row mb-4">
+              <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                <label for="dificult">
+                  <i class="fa fa-meteor fa-2x mr-2" style="color: #6b8dfb;"></i>
+                  Nível de Dificuldade
+                </label>
+                <select id="dificult" class="form-control mb-4" id="">
+                  <option value="easy" selected>Iniciante</option>
+                  <option value="medium">Intermediário</option>
+                  <option value="hard">Avançado</option>
+                </select>
+              </div>
+              <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                <label for="questionCategory">
+                  <i class="fa fa-book fa-2x mr-2" style="color: #6b8dfb;"></i>
+                  Conteúdo do Quiz
+                </label>
+                <select id="questionCategory" class="form-control mb-4" id="">
+                  <option value="mult" selected>Multidisciplinar</option>
+                  <option value="mat">Matemática</option>
+                  <option value="port">Português</option>
+                  <option value="geo">Geografia</option>
+                  <option value="hist">História</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" id="btnSubmitForm" class="btn btn-lg btn-success btn-block mb-2">
+              Start
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!--Game-->
+      <section>
+        <div class="d-none card col-lg-5 col-11 border-0 shadow mx-auto pb-5 mt-2 wow bounceInRight" id="game">
+          <div class="card-body">
+            <div class="row mb-3 px-5">
+
+              <!--Player1 Avatar-->
+              <div class="mr-auto wow fadeInUp player-box">
+                <div id="player1-box" class="d-flex align-items-end px-4 py-2">
+                  <i id="player1-icon" class="text-purple fa fa-user-circle fa-3x"></i>
+                  <h5 id="player1-name" class="text-dark text-left ml-2"></h5>
+                </div>
+              </div>
+
+              <i class="fa fa-times fa-2x mt-4 text-dark"></i>
+
+              <!--Player2 Avatar-->
+              <div class="ml-auto wow fadeInUp player-box">
+                <div id="player2-box" class="d-flex align-items-end px-4 py-2">
+                  <h5 id="player2-name" class="text-dark text-left mr-2"></h5>
+                  <i id="player2-icon" class="text-purple fa fa-user-circle fa-3x"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="gamePlate mx-auto">
+              <div class="pos" id="pos1"></div>
+              <div class="pos" id="pos2"></div>
+              <div class="pos" id="pos3"></div>
+
+              <div class="pos" id="pos4"></div>
+              <div class="pos" id="pos5"></div>
+              <div class="pos" id="pos6"></div>
+
+              <div class="pos" id="pos7"></div>
+              <div class="pos" id="pos8"></div>
+              <div class="pos" id="pos9"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <div id="quiz" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+
+              <!--Corpo da Pergunta-->
+              <div id="questionContent">
+
+                <!--Categoria da questão-->
+                <strong>
+                  <p id="questionCategory"></p>
+                </strong>
+
+                <!--Questão-->
+                <p class="mb-5" id="question"></p>
+
+                <h5 class="mb-4">Alternativas</h5>
+
+                <!--Alternativa-01-->
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="options" id="option1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1" id="label-option1"></label>
+                </div>
+
+                <!--Alternativa-02-->
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="options" id="option2" value="option2" checked>
+                  <label class="form-check-label" for="exampleRadios1" id="label-option2"></label>
+                </div>
+
+                <!--Alternativa-03-->
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="options" id="option3" value="option3" checked>
+                  <label class="form-check-label" for="exampleRadios1" id="label-option3"></label>
+                </div>
+
+                <button id="responseQuestion" class="btn btn-success">Responder</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--End Game-->
+      <div id="end" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              
+              <!--Vitória Box-->
+              <div class="wow flip d-none" id="win-box">
+                <i class="w-100 fa fa-crown fa-5x text-warning text-center"></i>
+                <h5 class="text-center mt-3" id="result"></h5>
+              </div>
+
+
+              <!--Vitória Box-->
+              <div class="wow flip d-none" id="crash-box">
+                <i class="w-100 fa fa-shield-alt fa-5x text-dark text-center"></i>
+                <h5 class="text-center mt-3" id="result">Empate</h5>
+              </div>
+
+              <div class="d-flex flex-row justify-content-center wow fadeInUp pt-5">
+                <button class="btn btn-danger mr-2" id="exit">Sair</button>
+                <button class="btn btn-primary" id="reset">Reiniciar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Feedback de respota correta-->
+      <div class="modal fade" id="feedbackSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5>
+                <i class="fa fa-check mr-2 text-success"></i>
+                Resposta correta
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Feedback de respota incorreta-->
+      <div class="modal fade" id="feedbackFail" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5>
+                <i class="fa fa-times mr-2 text-danger"></i>
+                Resposta incorreta
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Scripts-->
+      <script src="./js/sounds.js"></script>
+      <script src="./questionList.js"></script>
+      <script src="./js/functions.js"></script>
+      <script src="./js/index.js"></script>
+</body>
+
+</html>
