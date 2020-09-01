@@ -88,9 +88,6 @@ $('#responseQuestion').click(function () {
     success.load();
     success.play();
 
-    console.log('Resposta correta');
-    console.log(GameState.currentPlayer);
-
     var pos = $(`#${GameState.currentClickedPos}`);
 
     var bg = pos.css("background-image");

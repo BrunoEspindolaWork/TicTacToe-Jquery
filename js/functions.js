@@ -53,10 +53,6 @@ function setPlayerNames(player1, player2) {
 function findQuestionsByCategory(category, questionList) {
   if (category != 'mult') {
     const filteredQuestions = questionList.filter(ask => ask.category == category);
-
-    console.log(questionList);
-    console.log('categoria escolhida:' + category)
-    console.log(filteredQuestions);
     return filteredQuestions;
   } else {
     return questionList;
