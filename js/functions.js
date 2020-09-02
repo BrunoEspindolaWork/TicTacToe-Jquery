@@ -173,17 +173,25 @@ function equalPos(a, b, c) {
 // Verificar se houve um empate
 function crashGame() {
 
-  var bg = pos.css("background-image");
+  const posEmpty = $('.pos').filter(pos => pos.css('background-image') == 'none');
 
-  if (bg == 'none' || bg == '') {
-    return true;
+  console.group(posEmpty);
+
+  if(posEmpty){
+    console.log('Ainda há casas vazias');
   } else {
-    return false;
+    console.log('Todas as casas estão ocupadas!');
+
   }
+
 }
+
 
 // Verificar se o jogo acabou e setar um vencedor.
 function checkGameEnd() {
+
+
+  const pos = $('.pos').css('background-image');
 
   //Verifica todas as possibilidades de haver um ganhador
   if (equalPos(1, 2, 3) || equalPos(4, 5, 6) || equalPos(7, 8, 9) ||
@@ -194,21 +202,11 @@ function checkGameEnd() {
     const playerWinner = GameState.winner;
 
     // Setar o vencedor
-    if (playerWinner != null) {
-      if (playerWinner === 'player1') {
-        setResultGame(GameState.player1);
-      } else {
-        setResultGame(GameState.player2);
-      }
+    if (playerWinner === 'player1') {
+      setResultGame(GameState.player1);
     } else {
-      const crash = crashGame();
-      if (crash) {
-        setResultGame('empate');
-      }
+      setResultGame(GameState.player2);
     }
-
-    // Finalizar partida
-    GameState.end = true;
 
     $(".pos").css("background-image", "none");
     $(".pos").off("click"); // Desabilita o clique do mouse nas casas
@@ -220,11 +218,13 @@ function checkGameEnd() {
     setInterval(() => {
       $("#end").modal("show");
     }, 3000);
+  } else if(pos != 'none' || pos != ''){
+    console.log('tudo preenchido');
   }
 }
 
 
-
+// Timer
 
 function startTimer() {
   if ((GameState.timer - 1) >= 0) {
@@ -253,14 +253,13 @@ function startTimer() {
 
     // diminui o tempo
     GameState.timer--;
-    console.log(GameState.timer);
 
     // Quando o contador chegar a zero faz esta ação
   } else {
 
     //console.log(GameState.timer);
     if (GameState.timer == 0.1) {
-      console.log('Nada fazer');
+      //console.log('Nada fazer');
     } else {
 
       // Efeio sonoro 

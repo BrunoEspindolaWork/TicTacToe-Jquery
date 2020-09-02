@@ -79,7 +79,7 @@ $('#responseQuestion').click(function () {
 
   // Resposta do usuário
   const response = $('[name=options]:checked').val();
-  
+
   questionTimer('off');
 
 
@@ -94,26 +94,22 @@ $('#responseQuestion').click(function () {
     success.load();
     success.play();
 
-    var pos = $(`#${GameState.currentClickedPos}`);
+    // Casa escolhida
+    let pos = $(`#${GameState.currentClickedPos}`);
 
-    var bg = pos.css("background-image");
+    // Escolher imagem de acordo com o jogador da vez.
+    var fig = "url(" + GameState.currentPlayer.toString() + ".svg)";
 
-    // Verifica se a cada esta vazia
-    if (bg == "none" || bg == "") {
+    // Adiciona, na casa, a imagem correspondente ao jogador.
+    pos.css("background-image", fig);
 
-      // Escolher imagem de acordo com o jogador da vez.
-      var fig = "url(" + GameState.currentPlayer.toString() + ".svg)"; 
+    // Troca o jogador da vez 
+    GameState.currentPlayer = (GameState.currentPlayer == 1 ? 2 : 1);
 
-       // Adiciona, na casa, a imagem correspondente ao jogador.
-      pos.css("background-image", fig);
-
-      // Troca o jogador da vez 
-      GameState.currentPlayer = (GameState.currentPlayer == 1 ? 2 : 1); 
-
-      // Verificar fim de jogo.
-      checkGameEnd(); 
-    }
-
+    // Verificar fim de jogo.
+    checkGameEnd();
+    //crashGame();
+ 
     setColorInCurrentPlayerBox(GameState.currentPlayer);
 
     // Notificar usuário que a resposta esta correta
@@ -154,37 +150,45 @@ $('#responseQuestion').click(function () {
 // Escolher um Posição
 $(".pos").click(function () {
 
-
-  console.log(GameState.questionTimer);
-  console.log(GameState.timer);
-
-  GameState.timer = GameState.questionTimer;
-  questionTimer('on');
-
-  console.log(GameState.timer);
-
-  // Efeito sonoro
-  mouseClick.load();
-  mouseClick.play();
-
-  // Buscar perguntas refêntes ao conteúdo selecionado
-  GameState.questionList = findQuestionsByCategory(GameState.questionCategory, questionList);
-
-  // Setar uma pergunta
-  GameState.currentQuestion = chooseQuestion(GameState.questionList, GameState.questionUsed);
-
-  // Abrir o Quiz
-  $('#quiz').modal('show');
-
-  // Setar a pergunta atual
-  setQuestion(GameState.currentQuestion);
-
-  // Setar a posição clicada
   GameState.currentClickedPos = $(this).attr('id');
 
-  // Setar a cor do jogador atual
-  setColorInCurrentPlayerBox(GameState.currentPlayer);
+  bg = $(this).css('background-image');
 
+  // Verifica se a cada esta vazia
+  if (bg == "none" || bg == "") {
+
+    console.log(GameState.questionTimer);
+    console.log(GameState.timer);
+  
+    GameState.timer = GameState.questionTimer;
+    questionTimer('on');
+  
+    console.log(GameState.timer);
+  
+    // Efeito sonoro
+    mouseClick.load();
+    mouseClick.play();
+  
+    // Buscar perguntas refêntes ao conteúdo selecionado
+    GameState.questionList = findQuestionsByCategory(GameState.questionCategory, questionList);
+  
+    // Setar uma pergunta
+    GameState.currentQuestion = chooseQuestion(GameState.questionList, GameState.questionUsed);
+  
+    // Abrir o Quiz
+    $('#quiz').modal('show');
+  
+    // Setar a pergunta atual
+    setQuestion(GameState.currentQuestion);
+  
+    // Setar a cor do jogador atual
+    setColorInCurrentPlayerBox(GameState.currentPlayer);
+  } else {
+
+    // Casa já ocupada
+    fail.load();
+    fail.play();
+  }
 });
 
 

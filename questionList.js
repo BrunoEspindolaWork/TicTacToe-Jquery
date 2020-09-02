@@ -175,6 +175,112 @@ var questionList = [
         option3: "100.000",
         correct: "option2"
     },
+
+
+    {
+        id: 15,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+
+    {
+        id: 16,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+
+    {
+        id: 17,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+
+    {
+        id: 18,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+
+    {
+        id: 19,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+
+
+    {
+        id: 20,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+    {
+        id: 21,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+    {
+        id: 22,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
+
+    {
+        id: 23,
+        difficulty: "medium",
+        category: "mat",
+        question: "Quantos kg tem mil toneladas?",
+        option1: "100.000.000",
+        option2: "1.000.000",
+        option3: "100.000",
+        correct: "option2"
+    },
     //HISTÓRIA
     {
         difficulty: "hard",
