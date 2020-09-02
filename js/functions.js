@@ -1,4 +1,28 @@
 
+
+function getCategoryName(initials) {
+
+  switch (initials) {
+
+    case 'mat':
+      return 'Matemática';
+      break;
+
+    case 'port':
+      return 'Português';
+      break;
+
+    case 'geo':
+      return 'Geografia';
+      break;
+
+    case 'hist':
+      return 'História';
+      break;
+  }
+}
+
+
 // Setar um Timer para a questão de acordo com a dificuldade selecionada
 function getQuestionTimerByDifficulty(gameDificult) {
   switch (gameDificult) {
@@ -25,7 +49,7 @@ function getRandomInt(min, max) {
 function setQuestion(question) {
 
   $('#question').html(question.question);
-  $('#questionCategory').html(question.category);
+  $('#questionCategory').html(getCategoryName(question.category));
   $('#label-option1').html(question.option1);
   $('#label-option2').html(question.option2);
   $('#label-option3').html(question.option3);
@@ -79,18 +103,32 @@ function chooseQuestion(questionList, questionUsed) {
 };
 
 // Setar um feedBack
-function setFeedback(status, time) {
-  if (status === 'correct') {
-    $("#feedbackSuccess").modal("show");
-    setInterval(() => {
-      $("#feedbackSuccess").modal("hide");
-    }, time);
-  } else {
-    $("#feedbackFail").modal("show");
-    setInterval(() => {
-      $("#feedbackFail").modal("hide");
-    }, time);
+function setFeedback(type, time) {
+  switch (type) {
+
+    case 'success':
+      $("#feedbackSuccess").modal("show");
+      setInterval(() => {
+        $("#feedbackSuccess").modal("hide");
+      }, time);
+      break;
+
+    case 'fail':
+      $("#feedbackFail").modal("show");
+      setInterval(() => {
+        $("#feedbackFail").modal("hide");
+      }, time);
+      break;
+
+    case 'limitTime':
+      $("#feedbackLimitTime").modal("show");
+      setInterval(() => {
+        $("#feedbackLimitTime").modal("hide");
+      }, time);
+      break;
+
   }
+
 };
 
 // Setar resultado do jogo
@@ -145,7 +183,7 @@ function crashGame() {
 }
 
 // Verificar se o jogo acabou e setar um vencedor.
-function checkGameEnd(){
+function checkGameEnd() {
 
   //Verifica todas as possibilidades de haver um ganhador
   if (equalPos(1, 2, 3) || equalPos(4, 5, 6) || equalPos(7, 8, 9) ||
@@ -164,7 +202,7 @@ function checkGameEnd(){
       }
     } else {
       const crash = crashGame();
-      if(crash){
+      if (crash) {
         setResultGame('empate');
       }
     }
@@ -184,3 +222,79 @@ function checkGameEnd(){
     }, 3000);
   }
 }
+
+
+
+
+function startTimer() {
+  if ((GameState.timer - 1) >= 0) {
+
+    // Pega a parte inteira dos minutos
+    var min = parseInt(GameState.timer / 60);
+    // Calcula os segundos restantes
+    var seg = GameState.timer % 60;
+
+    // Formata o número menor que dez, ex: 08, 07, ...
+    if (min < 10) {
+      min = "0" + min;
+      min = min.substr(0, 2);
+    }
+    if (seg <= 9) {
+      seg = "0" + seg;
+    }
+
+    // Cria a variável para formatar no estilo hora/cronômetro
+    formatedTimer = seg;
+    //JQuery pra setar o valor
+    $("#timer").html(formatedTimer);
+
+    // Define que a função será executada novamente em 1000ms = 1 segundo
+    setTimeout('startTimer()', 1000);
+
+    // diminui o tempo
+    GameState.timer--;
+    console.log(GameState.timer);
+
+    // Quando o contador chegar a zero faz esta ação
+  } else {
+
+    //console.log(GameState.timer);
+    if (GameState.timer == 0.1) {
+      console.log('Nada fazer');
+    } else {
+
+      // Efeio sonoro 
+      fail.load();
+      fail.play();
+
+      // Altera o jogador atual
+      GameState.currentPlayer = GameState.currentPlayer == 1 ? 2 : 1;
+      setColorInCurrentPlayerBox(GameState.currentPlayer);
+
+      // Notificar usuário que a resposta esta incorreta
+      setFeedback('limitTime', 1000);
+
+      // Fecha a pergunta
+      $('#quiz').modal('hide');
+
+      // Escolhe a próxima pergunta
+      GameState.currentQuestion = GameState.questionList[chooseQuestion(GameState.questionList)];
+      setQuestion(GameState.currentQuestion);
+    }
+  }
+}
+
+function stopTimer() {
+  GameState.timer = 0.1;
+}
+
+function questionTimer(status) {
+  if (status === 'on') {
+    startTimer();
+  } else {
+    stopTimer();
+  }
+}
+
+
+

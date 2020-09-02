@@ -87,7 +87,7 @@
                   <i class="fa fa-book fa-2x mr-2" style="color: #6b8dfb;"></i>
                   Conteúdo do Quiz
                 </label>
-                <select id="questionCategory" class="form-control mb-4" id="">
+                <select id="category" class="form-control mb-4" id="">
                   <option value="mult" selected>Multidisciplinar</option>
                   <option value="mat">Matemática</option>
                   <option value="port">Português</option>
@@ -153,12 +153,14 @@
           <div class="modal-content">
             <div class="modal-body">
 
+              <h5 id="timer"></h5>
+
               <!--Corpo da Pergunta-->
               <div id="questionContent">
 
                 <!--Categoria da questão-->
                 <strong>
-                  <p id="questionCategory"></p>
+                  <small id="questionCategory"></small>
                 </strong>
 
                 <!--Questão-->
@@ -249,6 +251,22 @@
           </div>
         </div>
       </div>
+
+
+         <!--Feedback ultrapassou o tempo limite-->
+         <div class="modal fade" id="feedbackLimitTime" data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-body">
+               <h5>
+                 <i class="fa fa-grimace mr-2 text-warning"></i>
+                 Ops... Acabou o tempo
+               </h5>
+             </div>
+           </div>
+         </div>
+       </div>
 
       <!--Scripts-->
       <script src="./js/index.js"></script>

@@ -8,10 +8,12 @@ var GameState = {
   difficulty: null,
   questionCategory: null,
   questionTimer: 0,
+  timer: new Number(),
   questionList: null,
   questionUsed: [],
   questionAllowed: [],
   currentQuestion: null,
+  currentQuestionResponse: null,
   currentClickedPos: null,
   start: false,
   end: false
@@ -29,7 +31,7 @@ $('#btnSubmitForm').click(() => {
   const player1 = $('#player1').val();
   const player2 = $('#player2').val();
   const difficulty = $('#dificult').val();
-  const questionCategory = $('#questionCategory').val();
+  const questionCategory = $('#category').val();
 
   // AQUI VAI A VALIDAÇÃO - A fazer
 
@@ -39,7 +41,7 @@ $('#btnSubmitForm').click(() => {
     GameState.player2 = player2;
     GameState.difficulty = difficulty;
     GameState.questionCategory = questionCategory;
-    GameState.questionTimer = getQuestionTimerByDifficulty(dificult);
+    GameState.questionTimer = getQuestionTimerByDifficulty(difficulty);
     GameState.start = true;
   }
 
@@ -74,8 +76,12 @@ $('[name=options]').click(() => {
 // RESPOSTA DO QUIZ
 $('#responseQuestion').click(function () {
 
+
   // Resposta do usuário
   const response = $('[name=options]:checked').val();
+  
+  questionTimer('off');
+
 
   // Resposta correta da pergunta
   const correctOption = GameState.currentQuestion.correct;
@@ -111,7 +117,7 @@ $('#responseQuestion').click(function () {
     setColorInCurrentPlayerBox(GameState.currentPlayer);
 
     // Notificar usuário que a resposta esta correta
-    setFeedback('correct', 1000);
+    setFeedback('success', 1000);
 
   } else {
 
@@ -147,6 +153,15 @@ $('#responseQuestion').click(function () {
 
 // Escolher um Posição
 $(".pos").click(function () {
+
+
+  console.log(GameState.questionTimer);
+  console.log(GameState.timer);
+
+  GameState.timer = GameState.questionTimer;
+  questionTimer('on');
+
+  console.log(GameState.timer);
 
   // Efeito sonoro
   mouseClick.load();
