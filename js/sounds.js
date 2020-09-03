@@ -28,3 +28,8 @@
   winner.setAttribute("src", "https://raw.githubusercontent.com/BrunoEspindolaWork/TicTacToe-Jquery/master/assets/audio/winner.mp3");
   winner.setAttribute("autoplay:false", "autoplay");
   
+   // Tie
+   var tie = document.createElement("audio");
+   tie.setAttribute("src", "https://raw.githubusercontent.com/BrunoEspindolaWork/TicTacToe-Jquery/master/assets/audio/tie.mp3");
+   tie.setAttribute("autoplay:false", "autoplay");
+   

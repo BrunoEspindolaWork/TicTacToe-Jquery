@@ -108,7 +108,7 @@ $('#responseQuestion').click(function () {
 
     // Verificar fim de jogo.
     checkGameEnd();
-    //crashGame();
+    checkCrashGame(); 
  
     setColorInCurrentPlayerBox(GameState.currentPlayer);
 
@@ -145,8 +145,6 @@ $('#responseQuestion').click(function () {
 });
 
 
-
-
 // Escolher um Posição
 $(".pos").click(function () {
 
@@ -157,13 +155,8 @@ $(".pos").click(function () {
   // Verifica se a cada esta vazia
   if (bg == "none" || bg == "") {
 
-    console.log(GameState.questionTimer);
-    console.log(GameState.timer);
-  
     GameState.timer = GameState.questionTimer;
     questionTimer('on');
-  
-    console.log(GameState.timer);
   
     // Efeito sonoro
     mouseClick.load();
@@ -192,10 +185,16 @@ $(".pos").click(function () {
 });
 
 
-
 $("#reset").click(function () {
+
   $(".pos").css("background-image", "none");
-  GameState.currentPlayer = 2;
+  $("#end").modal("hide");
+
+  const newCurrentPlayer = GameState.currentPlayer == 1 ? 2 : 1;
+
+  GameState.currentPlayer = newCurrentPlayer;
+  GameState.winner = null;
+  GameState.currentClickedPos = null;
 });
 
 

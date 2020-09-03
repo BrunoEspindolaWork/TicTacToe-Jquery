@@ -133,7 +133,7 @@ function setFeedback(type, time) {
 
 // Setar resultado do jogo
 function setResultGame(result) {
-  if (result != 'empate') {
+  if (result != 'tie') {
 
     $("#crash-box").addClass("d-none");
     $("#win-box").removeClass("d-none");
@@ -171,19 +171,47 @@ function equalPos(a, b, c) {
 }
 
 // Verificar se houve um empate
-function crashGame() {
+function checkCrashGame() {
 
-  const posEmpty = $('.pos').filter(pos => pos.css('background-image') == 'none');
+  const pos1 = $('#pos1').css('background-image');
+  const pos2 = $('#pos2').css('background-image');
+  const pos3 = $('#pos3').css('background-image');
+  const pos4 = $('#pos4').css('background-image');
+  const pos5 = $('#pos5').css('background-image');
+  const pos6 = $('#pos6').css('background-image');
+  const pos7 = $('#pos7').css('background-image');
+  const pos8 = $('#pos8').css('background-image');
+  const pos9 = $('#pos9').css('background-image');
 
-  console.group(posEmpty);
 
-  if(posEmpty){
-    console.log('Ainda há casas vazias');
+
+
+  if (pos1 != 'none' &&
+    pos2 != 'none' &&
+    pos3 != 'none' &&
+    pos4 != 'none' &&
+    pos5 != 'none' &&
+    pos6 != 'none' &&
+    pos7 != 'none' &&
+    pos8 != 'none' &&
+    pos9 != 'none') {
+
+    setResultGame('tie');
+
+    $(".pos").css("background-image", "none");
+    $(".pos").off("click"); // Desabilita o clique do mouse nas casas
+
+    // Efeito sonoro
+    tie.load();
+    tie.play();
+
+    setInterval(() => {
+      $("#end").modal("show");
+    }, 2500);
+
   } else {
-    console.log('Todas as casas estão ocupadas!');
-
+    return false;
   }
-
 }
 
 
@@ -198,11 +226,9 @@ function checkGameEnd() {
     equalPos(1, 4, 7) || equalPos(2, 5, 8) || equalPos(3, 6, 9) ||
     equalPos(1, 5, 9) || equalPos(3, 5, 7)) {
 
-    // Pegar o jodagor vencedor
-    const playerWinner = GameState.winner;
 
     // Setar o vencedor
-    if (playerWinner === 'player1') {
+    if (GameState.winner === 'player1') {
       setResultGame(GameState.player1);
     } else {
       setResultGame(GameState.player2);
@@ -217,9 +243,7 @@ function checkGameEnd() {
 
     setInterval(() => {
       $("#end").modal("show");
-    }, 3000);
-  } else if(pos != 'none' || pos != ''){
-    console.log('tudo preenchido');
+    }, 2500);
   }
 }
 
@@ -257,7 +281,7 @@ function startTimer() {
     // Quando o contador chegar a zero faz esta ação
   } else {
 
-    //console.log(GameState.timer);
+
     if (GameState.timer == 0.1) {
       //console.log('Nada fazer');
     } else {
@@ -294,6 +318,10 @@ function questionTimer(status) {
     stopTimer();
   }
 }
+
+
+
+
 
 
 
