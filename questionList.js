@@ -76,29 +76,6 @@ var questionList = [
         option3: "Verbo",
         correct: "option3"
     },
-
-    {
-        id: 8,
-        difficulty: "hard",
-        category: "port",
-        question: "",
-        option1: "",
-        option2: "",
-        option3: "",
-        correct: "option3"
-    },
-
-    {
-        id: 9,
-        difficulty: "hard",
-        category: "port",
-        question: "",
-        option1: "",
-        option2: "",
-        option3: "",
-        correct: "option3"
-    },
-
     {
         id: 10,
         difficulty: "hard",
