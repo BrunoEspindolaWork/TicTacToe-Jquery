@@ -185,16 +185,9 @@ $(".pos").click(function () {
 });
 
 
-$("#reset").click(function () {
+$("#exit").click(function () {
 
-  $(".pos").css("background-image", "none");
-  $("#end").modal("hide");
-
-  const newCurrentPlayer = GameState.currentPlayer == 1 ? 2 : 1;
-
-  GameState.currentPlayer = newCurrentPlayer;
-  GameState.winner = null;
-  GameState.currentClickedPos = null;
+  window.location.reload();
 });
 
 
